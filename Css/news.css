@@ -1,12 +1,32 @@
+/* Theme variables */
+:root {
+  --bg-main: #000;
+  --bg-nav: rgba(255,255,255,0.0);
+  --text-main: #fff;
+  --nav-link: #fff;
+  --nav-link-hover: #fa9b2f;
+}
+
+.light-theme {
+  --bg-main: #fff;
+  --bg-nav: rgba(255,255,255,0.85);
+  --text-main: #222;
+  --nav-link: #222;
+  --nav-link-hover: #fa9b2f;
+}
+
 /* Video background styles */
 .video-background {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 60vh;
+  min-height: 200px;
+  max-height: 500px;
   object-fit: cover;
-  z-index: -1;
+  z-index: 1;
+  display: block;
 }
 
 nav {
@@ -18,14 +38,14 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255,255,255,0.0); /* transparent */
+  background: var(--bg-nav);
   box-shadow: none;
   z-index: 10;
   backdrop-filter: blur(6px);
 }
 nav .logo {
   margin-left: 32px;
-  color: #fff;
+  color: var(--text-main);
 }
 nav .nav-links {
   display: flex;
@@ -38,7 +58,7 @@ nav .nav-links {
   padding: 0;
 }
 nav .nav-link {
-  color: #fff;
+  color: var(--nav-link);
   margin: 0 16px;
   text-decoration: none;
   font-size: 20px;
@@ -46,13 +66,15 @@ nav .nav-link {
   transition: color 0.2s;;
 }
 nav .nav-link:hover {
-  color: #fa9b2f;
+  color: var(--nav-link-hover);
 }
 
 body {
-  background: #000;
+  background: var(--bg-main);
+  color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @media (max-width: 900px) {
