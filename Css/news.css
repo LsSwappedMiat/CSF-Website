@@ -1,4 +1,9 @@
-/* Video background styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 .video-background {
   position: relative;
   top: 0;
@@ -53,7 +58,7 @@ nav .nav-link:hover {
 }
 
 body {
-  background: #000;
+  background: #ffffff;
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
