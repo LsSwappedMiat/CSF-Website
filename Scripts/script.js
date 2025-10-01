@@ -1,36 +1,44 @@
-const track = document.querySelector('.carousel-track');
-      const images = Array.from(document.querySelectorAll('.carousel-img'));
-      const prevBtn = document.querySelector('.carousel-btn.prev');
-      const nextBtn = document.querySelector('.carousel-btn.next');
-      let currentIndex = 0;
+// Showcase continuous auto-scroll carousel
+(() => {
 
-      function updateCarousel() {
-        images.forEach((img, idx) => {
-          img.classList.toggle('active', idx === currentIndex);
-        });
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
+  const carousel = document.querySelector('.showcase-carousel');
+  if (!carousel) return;
+  const track = carousel.querySelector('.carousel-track');
+  // no controls for display-only carousel
 
-      prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        updateCarousel();
-      });
+  // Wrap existing items into a single slide-set (3x2 grid)
+  const items = Array.from(track.querySelectorAll('.carousel-item'));
+  if (!items.length) return;
 
-      nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        updateCarousel();
-      });
+  const slideSet = document.createElement('div');
+  slideSet.className = 'slide-set';
+  // move items into slideSet
+  items.forEach(item => slideSet.appendChild(item));
+  // append the slideSet as the first child of track
+  track.appendChild(slideSet);
 
-      // Optional: swipe support for mobile
-      let startX = 0;
-      track.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-      });
-      track.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].clientX;
-        if (endX < startX - 30) nextBtn.click();
-        if (endX > startX + 30) prevBtn.click();
-      });
+  // clone the slideSet for seamless looping
+  const clone = slideSet.cloneNode(true);
+  track.appendChild(clone);
 
-      // Initialize
-      updateCarousel();
+  let pos = 0;
+  const speed = 30; // pixels per second
+  let lastTime = null;
+  let running = true;
+
+  function step(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    const dt = (timestamp - lastTime) / 1000; // seconds
+    lastTime = timestamp;
+    if (running) {
+      pos += speed * dt;
+  const wrapWidth = slideSet.scrollWidth; // width of one set
+  if (wrapWidth > 0 && pos >= wrapWidth) pos = 0;
+      track.style.transform = `translateX(-${pos}px)`;
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Start animation
+  requestAnimationFrame(step);
+})();

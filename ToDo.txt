@@ -1,9 +1,8 @@
 Finish Home Screen
-    Add revolving carousel that takes up the entire width of the page for pictures of food + events
+    fix end/start gap on carousel
     make news section on home white instead of grey
     make nav bar more visually appealing
     add themed footer
     add fonts to make certain aspects of the page pop: i.e. News, Upcoming Events, Everything in the nav bar, Carousel, etc
     make logo to fit the nav bar properly (Horizontal) -v 
-    make upcoming event tabs bigger (maybe 2h, 2v, or 3v, 2h, whichever looks better)
 
