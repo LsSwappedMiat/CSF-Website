@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="flavicon.ico" type="image/x-icon">
-   <title>Home</title>
+    <title>Home</title>
     <!-- CSS Link-->
     <link rel="stylesheet" href="Css\home.css" />
     <!-- Boxicons CSS Link -->
@@ -15,16 +15,8 @@
     />
   </head>
   <body>
-    <!-- Video Background (optional, update src as needed) -->
+    <!-- Video Background -->
     <video class="video-background" src="vbg.mp4" autoplay loop muted playsinline></video>
-    <div class="main-content">
-      <!-- Main content goes here. Replace this with your actual homepage content. -->
-      <section style="padding: 40px; color: #fff;">
-        <h1>Welcome to CSF</h1>
-        <p>This is the homepage. Scroll down to see more content below the video background.</p>
-        <p style="margin-top: 40px;">Add your homepage sections here.</p>
-      </section>
-    </div>
     <nav>
       <div class="logo">
         <img src="logo.png" alt="Logo" width="64" height="64" style="width:64px;height:64px;object-fit:contain;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
@@ -39,6 +31,81 @@
         <a href="About-Us.html" class="nav-link">About Us</a>
       </div>
     </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="content-row">
+        <!-- Upcoming Events -->
+        <section class="upcoming-events">
+          <h2>Upcoming Events</h2>
+          <div class="event-cards">
+            <div class="event-card">
+              <img src="logo.png" alt="Event 1">
+              <div class="event-info">
+                <p>Event 1 Description</p>
+                <a href="Events.html" class="event-btn">View Event</a>
+              </div>
+            </div>
+            <div class="event-card">
+              <img src="logo.png" alt="Event 2">
+              <div class="event-info">
+                <p>Event 2 Description</p>
+                <a href="Events.html" class="event-btn">View Event</a>
+              </div>
+            </div>
+            <div class="event-card">
+              <img src="logo.png" alt="Event 2">
+              <div class="event-info">
+                <p>Event 2 Description</p>
+                <a href="Events.html" class="event-btn">View Event</a>
+              </div>
+            </div>
+            <div class="event-card">
+              <img src="logo.png" alt="Event 2">
+              <div class="event-info">
+                <p>Event 2 Description</p>
+                <a href="Events.html" class="event-btn">View Event</a>
+              </div>
+            </div>
+            <div class="event-card">
+              <img src="logo.png" alt="Event 2">
+              <div class="event-info">
+                <p>Event 2 Description</p>
+                <a href="Events.html" class="event-btn">View Event</a>
+              </div>
+            </div>
+            <!-- Add more event cards as needed -->
+          </div>
+        </section>
+        <!-- News Panel -->
+        <aside class="news-panel">
+          <h3>Latest News</h3>
+          <div class="news-content">
+            <img src="media/news.jpg" alt="News" />
+            <p>Some exciting news goes here! Stay tuned for updates.</p>
+          </div>
+        </aside>
+      </div>
+      <!-- Showcase Area -->
+      <section class="showcase">
+        <h2>Do you like what you see?</h2>
+        <div class="showcase-carousel">
+          <button class="carousel-btn prev" aria-label="Previous">&#10094;</button>
+          <div class="carousel-track">
+            <img src="logo.png" alt="Showcase 1" class="carousel-img active">
+            <img src="logo.png" alt="Showcase 2" class="carousel-img">
+            <img src="logo.png" alt="Showcase 3" class="carousel-img">
+            <img src="logo.png" alt="Showcase 4" class="carousel-img">
+            <img src="logo.png" alt="Showcase 5" class="carousel-img">
+          </div>
+          <button class="carousel-btn next" aria-label="Next">&#10095;</button>
+        </div>
+        <div class="showcase-actions">
+          <a href="vendorbooking.html" class="carousel-btn">Book A Vendor Spot!</a>
+          <a href="Events.html" class="carousel-btn">Or Come Visit Us!</a>
+        </div>
+      </section>
+    </div>
     <script src="Scripts/script.js"></script>
   </body>
 </html>
