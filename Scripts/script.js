@@ -1,44 +1,64 @@
-// Showcase continuous auto-scroll carousel
+// Initialize all showcase carousels on the page
 (() => {
+  const carousels = Array.from(document.querySelectorAll('.showcase-carousel'));
+  if (!carousels.length) return;
 
-  const carousel = document.querySelector('.showcase-carousel');
-  if (!carousel) return;
-  const track = carousel.querySelector('.carousel-track');
-  // no controls for display-only carousel
+  carousels.forEach(carousel => {
+    const track = carousel.querySelector('.carousel-track');
+    if (!track) return;
 
-  // Wrap existing items into a single slide-set (3x2 grid)
-  const items = Array.from(track.querySelectorAll('.carousel-item'));
-  if (!items.length) return;
+    const items = Array.from(track.querySelectorAll('.carousel-item'));
+    if (!items.length) return;
 
-  const slideSet = document.createElement('div');
-  slideSet.className = 'slide-set';
-  // move items into slideSet
-  items.forEach(item => slideSet.appendChild(item));
-  // append the slideSet as the first child of track
-  track.appendChild(slideSet);
+    const slideSet = document.createElement('div');
+    slideSet.className = 'slide-set';
+    items.forEach(item => slideSet.appendChild(item));
+    track.appendChild(slideSet);
+    const clone = slideSet.cloneNode(true);
+    track.appendChild(clone);
 
-  // clone the slideSet for seamless looping
-  const clone = slideSet.cloneNode(true);
-  track.appendChild(clone);
+    let pos = 0;
+    const speed = 30; // pixels per second
+    let lastTime = null;
+    let running = true;
 
-  let pos = 0;
-  const speed = 30; // pixels per second
-  let lastTime = null;
-  let running = true;
-
-  function step(timestamp) {
-    if (!lastTime) lastTime = timestamp;
-    const dt = (timestamp - lastTime) / 1000; // seconds
-    lastTime = timestamp;
-    if (running) {
-      pos += speed * dt;
-  const wrapWidth = slideSet.scrollWidth; // width of one set
-  if (wrapWidth > 0 && pos >= wrapWidth) pos = 0;
-      track.style.transform = `translateX(-${pos}px)`;
+    function step(timestamp) {
+      if (!lastTime) lastTime = timestamp;
+      const dt = (timestamp - lastTime) / 1000; // seconds
+      lastTime = timestamp;
+      if (running) {
+        pos += speed * dt;
+        const wrapWidth = slideSet.scrollWidth; // width of one set
+        if (wrapWidth > 0 && pos >= wrapWidth) pos = 0;
+        track.style.transform = `translateX(-${pos}px)`;
+      }
+      requestAnimationFrame(step);
     }
-    requestAnimationFrame(step);
-  }
 
-  // Start animation
-  requestAnimationFrame(step);
+    // Start animation for this carousel
+    requestAnimationFrame(step);
+  });
+})();
+
+// Footer newsletter handler and footer year
+(() => {
+  // set current year
+  const year = new Date().getFullYear();
+  const el = document.getElementById('current-year');
+  if (el) el.textContent = String(year);
+
+  const form = document.querySelector('.footer-newsletter-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = form.querySelector('input[type="email"]');
+    const email = input && input.value && input.value.trim();
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      input.focus();
+      input.style.outline = '2px solid #e87c0e';
+      return;
+    }
+    // simple client-side success state
+    form.innerHTML = '<p style="color:#fff;margin:0;">Thanks — check your inbox for a confirmation.</p>';
+  });
 })();

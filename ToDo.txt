@@ -1,8 +1,5 @@
 Finish Home Screen
     fix end/start gap on carousel
-    make news section on home white instead of grey
-    make nav bar more visually appealing
     add themed footer
-    add fonts to make certain aspects of the page pop: i.e. News, Upcoming Events, Everything in the nav bar, Carousel, etc
     make logo to fit the nav bar properly (Horizontal) -v 
 
