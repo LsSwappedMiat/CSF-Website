@@ -80,3 +80,54 @@ body {
     display: flex;
   }
 }
+
+/* Vendor booking specific */
+:root{--accent:#fa9b2f}
+.map-page{width:95%;max-width:1200px;margin:28px auto 80px}
+.map-page h1{margin:0 0 18px;color:#222}
+.map-controls{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+.map-wrapper{position:relative;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.08);display:flex;gap:20px}
+#site-map{display:block;width:100%;height:60vh;background:#eee;pointer-events:auto}
+.map-wrapper{z-index:2;position:relative}
+.booking-panel{width:320px;padding:18px;background:#fff;border-radius:10px;margin:12px}
+.booking-panel h2{margin-top:0}
+.price-row{font-weight:700;margin:12px 0}
+.note{font-size:13px;color:#666}
+.btn{padding:8px 12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* SVG spots */
+.spot{fill:rgba(250,155,47,0.12);stroke:rgba(250,155,47,0.9);stroke-width:2;cursor:pointer;transition:transform .12s,fill .12s,opacity .12s}
+.spot:hover{fill:rgba(250,155,47,0.18)}
+.spot.reserved{fill:#d9d9d9;stroke:#b0b0b0;cursor:not-allowed;opacity:0.9}
+
+/* prevent hover scaling while editing */
+.edit-mode .spot:hover{transform:none}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:40;visibility:hidden;opacity:0;transition:opacity .18s,visibility .18s}
+.modal[aria-hidden="false"]{visibility:visible;opacity:1}
+.modal-content{background:#fff;padding:18px;border-radius:12px;min-width:320px;max-width:420px;box-shadow:0 12px 48px rgba(0,0,0,.2)}
+/* Admin-only controls hidden by default; shown when admin flag enables via JS */
+.admin-only{display:none}
+
+/* Edit mode visuals */
+.edit-mode .spot{stroke:#1976d2}
+
+/* Resize handle for rects */
+.resize-handle{fill:#1976d2;cursor:nwse-resize;stroke:#fff;stroke-width:1}
+.modal-close{position:absolute;right:18px;top:18px;border:0;background:transparent;font-size:22px;cursor:pointer}
+.modal form label{display:block;margin-bottom:10px;font-size:14px;color:#222}
+input[type=text],input[type=email]{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+
+@media (max-width:900px){
+  .map-wrapper{flex-direction:column}
+  .booking-panel{width:100%;}
+  #site-map{height:48vh}
+}
+
+/* Edit mode styles */
+.edit-mode .spot { stroke: #00a3ff; cursor: move; }
+.edit-toolbar { display:flex; gap:8px; margin-left:auto; }
+.edit-indicator { color:#00a3ff; font-weight:700; margin-left:8px }

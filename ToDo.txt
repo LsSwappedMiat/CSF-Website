@@ -1,5 +1,29 @@
-Finish Home Screen
-    fix end/start gap on carousel
-    add themed footer
-    make logo to fit the nav bar properly (Horizontal) -v 
+Home Screen
+    Finish
 
+About us (make)
+    Showcase pictures of victor and jolie, give a description of their backstories and how they started the festivals aswell as their posisitions within the festivals
+
+Contact us (make)
+    simple page containing how to contact victor and jolie, just emails and an email format.
+
+Cuban Sandwich Festival
+    little boxes that have room for a picture, and room underneath the picture for location, time, and date, 
+
+Taste Of Latino
+    same as csf
+
+Taste Of Tampa
+    same as csf
+
+Vendor Info (make)
+    give all Information a vendor may need on the day of the festival. I.e: time the festival should start, and when the vendor should come,
+    location of the festival, rules and guidelines for the location, etc.
+
+Vendor Booking (make)
+    interactive map for festival locations that allow the vendor to choose their own spots, each with its own price depending on the location +
+    compatibility with nonprofit discounts, and any other discounts they already offer
+
+Vip-Information (make)
+    page containing information about the vip area, the contest that happens within the vip area, and the rules and guidelines of the vip area
+    (where people should sit, where the vip area is for the specific location, and what will happen while they're there + when it ends)

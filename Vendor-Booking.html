@@ -32,6 +32,66 @@
         <a href="About-Us.html" class="nav-link">About Us</a>
       </div>
     </nav>
-    <script src="Scripts\script.js"></script>
+    <main class="map-page">
+      <h1>Vendor Booking Map</h1>
+      <div class="map-controls">
+        <label><input type="checkbox" id="nonprofit-toggle"> Nonprofit discount (20%)</label>
+        <button id="clear-reservations" class="btn">Clear Local Reservations</button>
+        <button id="toggle-edit" class="btn admin-only">Toggle Edit Mode</button>
+        <button id="add-spot-btn" class="btn admin-only">Add Spot</button>
+        <button id="save-spots-btn" class="btn admin-only">Save Spots</button>
+        <button id="export-spots" class="btn">Export Spots JSON</button>
+      </div>
+      <div class="map-wrapper">
+        <svg id="site-map" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
+          <image href="Media/map-base.png" x="0" y="0" width="1000" height="600" preserveAspectRatio="xMidYMid slice" />
+          <g id="spots">
+            <rect class="spot" data-id="A1" data-price="100" x="120" y="80" width="90" height="90" rx="8" ry="8"/>
+            <rect class="spot" data-id="A2" data-price="120" x="240" y="80" width="90" height="90" rx="8" ry="8"/>
+            <rect class="spot" data-id="B1" data-price="90"  x="120" y="200" width="90" height="90" rx="8" ry="8"/>
+            <rect class="spot" data-id="B2" data-price="110" x="240" y="200" width="90" height="90" rx="8" ry="8"/>
+            <circle class="spot" data-id="C1" data-price="140" cx="500" cy="120" r="45"/>
+            <circle class="spot" data-id="C2" data-price="140" cx="700" cy="120" r="45"/>
+            <rect class="spot" data-id="D1" data-price="80"  x="500" y="320" width="90" height="90" rx="8" ry="8"/>
+            <rect class="spot" data-id="D2" data-price="80"  x="700" y="320" width="90" height="90" rx="8" ry="8"/>
+          </g>
+        </svg>
+        <aside class="booking-panel">
+          <h2>Selected Spot</h2>
+          <div id="selected-info">None</div>
+          <div class="price-row">Price: <span id="selected-price">$0</span></div>
+          <div id="price-edit" style="margin-top:8px;display:none;">
+            <label>Edit price: <input id="edit-price" type="number" min="0" step="1" style="width:100px" /></label>
+            <button id="save-price-btn" class="btn">Save Price</button>
+          </div>
+          <div id="id-edit" style="margin-top:8px;display:none;">
+            <label>Edit ID: <input id="edit-id" type="text" style="width:100px" /></label>
+            <button id="save-id-btn" class="btn">Save ID</button>
+            <button id="delete-spot-btn" class="btn" style="background:#f66;color:#fff">Delete Spot</button>
+          </div>
+          <button id="reserve-btn" class="btn primary" disabled>Reserve Spot</button>
+          <p class="note">Reservations are stored locally for demo. For production connect to your backend.</p>
+        </aside>
+      </div>
+
+      <!-- Booking Modal -->
+      <div id="booking-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+          <button id="modal-close" class="modal-close">×</button>
+          <h3 id="modal-title">Reserve Spot</h3>
+          <form id="booking-form">
+            <input type="hidden" id="spotId" name="spotId" />
+            <label>Your name <input type="text" id="b-name" name="name" required></label>
+            <label>Email <input type="email" id="b-email" name="email" required></label>
+            <div class="modal-actions">
+              <button type="submit" class="btn primary">Confirm & Reserve</button>
+              <button type="button" id="modal-cancel" class="btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+    <script src="Scripts/map.js"></script>
   </body>
 </html>
