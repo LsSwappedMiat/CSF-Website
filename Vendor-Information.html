@@ -7,31 +7,90 @@
     <link rel="icon" href="flavicon.ico" type="image/x-icon">
    <title>Vendor Information</title>
     <!-- CSS Link-->
-  <link rel="stylesheet" href="Css\vendorinfo.css" />
+    <link rel="stylesheet" href="Css\home.css" />
+    <link rel="stylesheet" href="Css\vendorinfo.css" />
     <!-- Boxicons CSS Link -->
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/1b2e7c5bdb.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <!-- Video Background (optional, update src as needed) -->
-    <video class="video-background" src="vbg.mp4" autoplay loop muted playsinline></video>
     <nav>
-      <div class="logo">
-        <img src="logo.png" alt="Logo" width="64" height="64" style="width:64px;height:64px;object-fit:contain;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
+      <div class="logo-group">
+        <div class="logo">
+          <img src="Media\Images\CSF.png" alt="Logo" width="64" height="64" />
+        </div>
+        <div class="partner-logos" aria-hidden="true">
+          <img class="partner-logo" src="Media\Images\ToL.png" alt="Partner 1" />
+          <img class="partner-logo" src="Media\Images\ToT.png" alt="Partner 2" />
+        </div>
       </div>
       <div class="nav-links">
-  <a href="Home.html" class="nav-link">Home</a>
-  <a href="Events.html" class="nav-link">Event Information</a>
-        <a href="Vendor-Information.html" class="nav-link">Vendor Resources</a>
+        <a href="Home.html" class="nav-link">Home</a>
+        <a href="Vendor-Information.html" class="nav-link" style="color: #fa9b2f;">Vendor Resources</a>
         <a href="Vip-Information.html" class="nav-link">Vip Lounge Information</a>
-        <a href="News.html" class="nav-link">Latest News</a>
-        <a href="vendorbooking.html" class="nav-link">Book A Vendor Spot</a>
+        <a href="Vendor-Booking.html" class="nav-link">Book A Vendor Spot</a>
         <a href="Contact-Us.html" class="nav-link">Contact Us</a>
         <a href="About-Us.html" class="nav-link">About Us</a>
+        <a href="login.html" class="nav-link auth-only">Log In or Sign Up</a>
+        <button class="nav-link btn-link signed-in-only" onclick="signOut()" style="display:none;background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Sign Out</button>
+        <a href="adminpage.html" class="nav-link admin-only" style="display:none;">Admin Controls</a>
       </div>
     </nav>
+
+    <!-- Main Content Area -->
+    <main class="vendor-info-main" style="padding-top: 90px;">
+    </main>
+    
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-about">
+          <img src="Media/Images/CSF.png" alt="CSF" class="footer-logo" />
+          <h4>Cuban Sandwich Festival</h4>
+          <p>The Cuban Sandwich Festival, Taste of Latino, and other Festivals bring the best local events, vendors, and entertainment to your neighborhoods. Join us to celebrate culture, food, and community.</p>
+        </div>
+        <div class="footer-col footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="Events.html">Events</a></li>
+            <li><a href="Vendor-Information.html">Vendor Resources</a></li>
+            <li><a href="News.html">News</a></li>
+            <li><a href="Contact-Us.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Join Our Mailing List</h4>
+          <form class="footer-newsletter-form" aria-label="Subscribe to newsletter">
+            <input type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+          </form>
+          <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer-col footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" aria-label="X" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-inner small">
+          <p>2025 ©<span id="current-year"></span> Cuban Sandwich Festival — All rights reserved.</p>
+          <p class="footer-legal"><a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+        </div>
+      </div>
+    </footer>
+    
     <script src="Scripts\script.js"></script>
+    
+    <!-- Auth Scripts -->
+    <script src="Scripts/auth.js"></script>
+    <script src="Scripts/nav-auth.js"></script>
   </body>
 </html>

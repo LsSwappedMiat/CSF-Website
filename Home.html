@@ -33,7 +33,9 @@
         <a href="Vendor-Booking.html" class="nav-link">Book A Vendor Spot</a>
         <a href="Contact-Us.html" class="nav-link">Contact Us</a>
         <a href="About-Us.html" class="nav-link">About Us</a>
-      </div>
+        <a href="login.html" class="nav-link auth-only">Log In or Sign Up</a>
+        <button class="nav-link btn-link signed-in-only" onclick="signOut()" style="display:none;background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Sign Out</button>
+        <a href="adminpage.html" class="nav-link admin-only" style="display:none;">Admin Controls</a>
     </nav>
 
     <!-- Main Content -->
@@ -180,5 +182,9 @@
         </div>
       </div>
     </footer>
+    
+    <!-- Auth Scripts -->
+    <script src="Scripts/auth.js"></script>
+    <script src="Scripts/nav-auth.js"></script>
   </body>
 </html>

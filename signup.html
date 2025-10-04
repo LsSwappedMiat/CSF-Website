@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Cuban Sandwich Festival</title>
+    <link rel="stylesheet" href="Css/home.css">
+    <link rel="stylesheet" href="Css/auth.css">
+    <script src="https://kit.fontawesome.com/1b2e7c5bdb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+      <div class="logo-group">
+        <div class="logo">
+          <img src="Media\Images\CSF.png" alt="Logo" width="64" height="64" />
+        </div>
+        <div class="partner-logos" aria-hidden="true">
+          <img class="partner-logo" src="Media\Images\ToL.png" alt="Partner 1" />
+          <img class="partner-logo" src="Media\Images\ToT.png" alt="Partner 2" />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="Home.html" class="nav-link">Home</a>
+        <a href="Vendor-Information.html" class="nav-link">Vendor Resources</a>
+        <a href="Vip-Information.html" class="nav-link">Vip Lounge Information</a>
+        <a href="Vendor-Booking.html" class="nav-link">Book A Vendor Spot</a>
+        <a href="Contact-Us.html" class="nav-link">Contact Us</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+        <a href="login.html" class="nav-link">Log In</a>
+        <a href="adminpage.html" class="nav-link admin-only" style="display:none;">Admin Controls</a>
+      </div>
+    </nav>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>Join Us</h1>
+                <p>Create your Cuban Sandwich Festival account</p>
+            </div>
+
+            <div class="auth-form-container">
+                <form id="signup-form" class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" name="name" required 
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" name="email" required 
+                               placeholder="Enter your email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required minlength="6"
+                               placeholder="Create a password (min. 6 characters)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <input type="password" id="register-confirm-password" name="confirmPassword" required minlength="6"
+                               placeholder="Confirm your password">
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agree-terms" required>
+                            <span>I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a></span>
+                        </label>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="newsletter-signup">
+                            <span>Send me updates about upcoming events and festivals</span>
+                        </label>
+                    </div>
+
+                    <div id="register-error" class="error-message"></div>
+
+                    <button type="submit" class="btn primary full-width">Create Account</button>
+                </form>
+
+                <div class="auth-links">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </div>
+
+                <div class="signup-benefits">
+                    <h3>Why Create an Account?</h3>
+                    <ul>
+                        <li>✓ Easy vendor spot booking and management</li>
+                        <li>✓ Save your booking history and preferences</li>
+                        <li>✓ Receive updates about new events and festivals</li>
+                        <li>✓ Access to exclusive vendor resources and discounts</li>
+                        <li>✓ Priority notification for popular vendor spots</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success/Error Modal -->
+    <div id="message-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <h3 id="message-title">Success</h3>
+            <p id="message-text"></p>
+            <div class="modal-actions">
+                <button class="btn primary" onclick="closeMessageModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div id="terms-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeTermsModal()">×</button>
+            <h3>Terms of Service</h3>
+            <div class="terms-content">
+                <p>By creating an account with the Cuban Sandwich Festival, you agree to the following terms:</p>
+                <ul>
+                    <li>You will provide accurate and truthful information</li>
+                    <li>You are responsible for maintaining the security of your account</li>
+                    <li>You will use the platform responsibly and lawfully</li>
+                    <li>Vendor bookings are subject to event terms and conditions</li>
+                    <li>We reserve the right to suspend accounts for misuse</li>
+                </ul>
+                <p>Last updated: October 2025</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn primary" onclick="closeTermsModal()">I Understand</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col footer-about">
+                <img src="Media/Images/CSF.png" alt="CSF" class="footer-logo" />
+                <p>The Cuban Sandwich Festival brings the best local events, vendors, and entertainment to your neighborhoods. Join us to celebrate culture, food, and community.</p>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Vendor-Booking.html">Book A Vendor Spot</a></li>
+                    <li><a href="Contact-Us.html">Contact Us</a></li>
+                    <li><a href="About-Us.html">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>Email: info@csfestival.com</li>
+                    <li>Phone: (813) 555-0123</li>
+                    <li>Address: Tampa, FL</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>2025 © Cuban Sandwich Festival — All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="Scripts/auth.js"></script>
+    <script>
+        // Page-specific registration handling
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const agreeTerms = document.getElementById('agree-terms').checked;
+            const newsletter = document.getElementById('newsletter-signup').checked;
+            const errorEl = document.getElementById('register-error');
+
+            // Validation
+            if (!agreeTerms) {
+                errorEl.textContent = 'You must agree to the Terms of Service to create an account';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorEl.textContent = 'Passwords do not match';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorEl.textContent = 'Password must be at least 6 characters';
+                return;
+            }
+
+            try {
+                const user = userManager.createUser(name, email, password, ['viewer']); // Default to viewer
+                userManager.login(email, password); // Auto-login after registration
+                
+                // Update navigation
+                updateUserUI();
+                
+                showMessage('Account Created!', `Welcome to the Cuban Sandwich Festival, ${user.name}! Your account has been created successfully. Redirecting to home page...`);
+                
+                // Store newsletter preference
+                if (newsletter) {
+                    localStorage.setItem(`newsletter_${email}`, 'true');
+                }
+                
+                // Redirect after short delay
+                setTimeout(() => {
+                    window.location.href = 'Home.html';
+                }, 3000);
+            } catch (error) {
+                errorEl.textContent = error.message;
+            }
+        }
+
+        function showTerms() {
+            document.getElementById('terms-modal').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeTermsModal() {
+            document.getElementById('terms-modal').setAttribute('aria-hidden', 'true');
+        }
+
+        function showPrivacy() {
+            alert('Privacy Policy: We protect your personal information and only use it for festival-related communications. We do not share your data with third parties.');
+        }
+
+        function showMessage(title, message) {
+            document.getElementById('message-title').textContent = title;
+            document.getElementById('message-text').textContent = message;
+            document.getElementById('message-modal').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeMessageModal() {
+            document.getElementById('message-modal').setAttribute('aria-hidden', 'true');
+        }
+
+        // Update UI on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserUI();
+            
+            // If user is already logged in, redirect to home
+            const currentUser = userManager.getCurrentUser();
+            if (currentUser) {
+                showMessage('Already Signed In', `You're already signed in as ${currentUser.name}. Redirecting to home page...`);
+                setTimeout(() => {
+                    window.location.href = 'Home.html';
+                }, 2000);
+            }
+        });
+    </script>
+    
+    <!-- Footer from Home.html -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-about">
+          <img src="Media/Images/CSF.png" alt="CSF" class="footer-logo" />
+          <h4>Cuban Sandwich Festival</h4>
+          <p>The Cuban Sandwich Festival, Taste of Latino, and other Festivals bring the best local events, vendors, and entertainment to your neighborhoods. Join us to celebrate culture, food, and community.</p>
+        </div>
+        <div class="footer-col footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="Events.html">Events</a></li>
+            <li><a href="Vendor-Information.html">Vendor Resources</a></li>
+            <li><a href="News.html">News</a></li>
+            <li><a href="Contact-Us.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Join Our Mailing List</h4>
+          <form class="footer-newsletter-form" aria-label="Subscribe to newsletter">
+            <input type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+          </form>
+          <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer-col footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" aria-label="X" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-inner small">
+          <p>2025 ©<span id="current-year"></span> Cuban Sandwich Festival — All rights reserved.</p>
+          <p class="footer-legal"><a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Auth Scripts -->
+    <script src="Scripts/auth.js"></script>
+    <script src="Scripts/nav-auth.js"></script>
+</body>
+</html>

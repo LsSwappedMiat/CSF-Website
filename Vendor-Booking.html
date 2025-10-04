@@ -7,69 +7,74 @@
     <link rel="icon" href="flavicon.ico" type="image/x-icon">
    <title>Vendor Booking Information</title>
     <!-- CSS Link-->
-  <link rel="stylesheet" href="Css\vendorbooking.css" />
+    <link rel="stylesheet" href="Css\home.css" />
+    <link rel="stylesheet" href="Css\vendorbooking.css" />
     <!-- Boxicons CSS Link -->
     <link
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <script src="https://kit.fontawesome.com/1b2e7c5bdb.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <!-- Video Background (optional, update src as needed) -->
     <video class="video-background" src="vbg.mp4" autoplay loop muted playsinline></video>
     <nav>
-      <div class="logo">
-        <img src="logo.png" alt="Logo" width="64" height="64" style="width:64px;height:64px;object-fit:contain;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);" />
+      <div class="logo-group">
+        <div class="logo">
+          <img src="Media\Images\CSF.png" alt="Logo" width="64" height="64" />
+        </div>
+        <div class="partner-logos" aria-hidden="true">
+          <img class="partner-logo" src="Media\Images\ToL.png" alt="Partner 1" />
+          <img class="partner-logo" src="Media\Images\ToT.png" alt="Partner 2" />
+        </div>
       </div>
       <div class="nav-links">
-  <a href="Home.html" class="nav-link">Home</a>
-  <a href="Events.html" class="nav-link">Event Information</a>
+        <a href="Home.html" class="nav-link">Home</a>
+        <a href="Events.html" class="nav-link">Event Information</a>
         <a href="Vendor-Information.html" class="nav-link">Vendor Resources</a>
         <a href="Vip-Information.html" class="nav-link">Vip Lounge Information</a>
         <a href="News.html" class="nav-link">Latest News</a>
-        <a href="vendorbooking.html" class="nav-link">Book A Vendor Spot</a>
         <a href="Contact-Us.html" class="nav-link">Contact Us</a>
         <a href="About-Us.html" class="nav-link">About Us</a>
+        <a href="login.html" class="nav-link auth-only">Log In or Sign Up</a>
+        <button class="nav-link btn-link signed-in-only" onclick="signOut()" style="display:none;background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Sign Out</button>
+        <a href="adminpage.html" class="nav-link admin-only" style="display:none;">Admin Controls</a>
       </div>
     </nav>
     <main class="map-page">
       <h1>Vendor Booking Map</h1>
       <div class="map-controls">
-        <label><input type="checkbox" id="nonprofit-toggle"> Nonprofit discount (20%)</label>
         <button id="clear-reservations" class="btn">Clear Local Reservations</button>
-        <button id="toggle-edit" class="btn admin-only">Toggle Edit Mode</button>
-        <button id="add-spot-btn" class="btn admin-only">Add Spot</button>
-        <button id="save-spots-btn" class="btn admin-only">Save Spots</button>
-        <button id="export-spots" class="btn">Export Spots JSON</button>
+        <button id="toggle-edit" class="btn edit-only" style="display:none;">Toggle Edit Mode</button>
       </div>
+      
       <div class="map-wrapper">
         <svg id="site-map" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet">
           <image href="Media/Images/YborMap.png" x="0" y="0" width="100%" height="100% preserveAspectRatio="xMidYMid slice" />
           <g id="spots">
-            <rect class="spot" data-id="A1" data-price="100" x="120" y="80" width="90" height="90" rx="8" ry="8"/>
-            <rect class="spot" data-id="A2" data-price="120" x="240" y="80" width="90" height="90" rx="8" ry="8"/>
-            <rect class="spot" data-id="B1" data-price="90"  x="120" y="200" width="90" height="90" rx="8" ry="8"/>
-            <rect class="spot" data-id="B2" data-price="110" x="240" y="200" width="90" height="90" rx="8" ry="8"/>
-            <circle class="spot" data-id="C1" data-price="140" cx="500" cy="120" r="45"/>
-            <circle class="spot" data-id="C2" data-price="140" cx="700" cy="120" r="45"/>
-            <rect class="spot" data-id="D1" data-price="80"  x="500" y="320" width="90" height="90" rx="8" ry="8"/>
-            <rect class="spot" data-id="D2" data-price="80"  x="700" y="320" width="90" height="90" rx="8" ry="8"/>
-          </g>
         </svg>
         <aside class="booking-panel">
           <h2>Selected Spot</h2>
           <div id="selected-info">None</div>
           <div class="price-row">Price: <span id="selected-price">$0</span></div>
+          <div id="selected-description" style="margin-top:12px;margin-bottom:16px;padding:8px;background:#f8f9fa;border-radius:4px;color:#555;font-size:14px;line-height:1.4;display:none;"></div>
           <div id="price-edit" style="margin-top:8px;display:none;">
             <label>Edit price: <input id="edit-price" type="number" min="0" step="1" style="width:100px" /></label>
             <button id="save-price-btn" class="btn">Save Price</button>
+          </div>
+          <div id="description-edit" style="margin-top:8px;display:none;">
+            <label>Edit description: <textarea id="edit-description" style="width:200px;height:60px;resize:vertical;font-family:inherit;"></textarea></label>
+            <button id="save-description-btn" class="btn">Save Description</button>
           </div>
           <div id="id-edit" style="margin-top:8px;display:none;">
             <label>Edit ID: <input id="edit-id" type="text" style="width:100px" /></label>
             <button id="save-id-btn" class="btn">Save ID</button>
             <button id="delete-spot-btn" class="btn" style="background:#f66;color:#fff">Delete Spot</button>
           </div>
-          <button id="reserve-btn" class="btn primary" disabled>Reserve Spot</button>
+          <button id="reserve-btn" class="btn primary" disabled style="margin-top:12px;">Reserve Spot</button>
+          <button id="admin-reserve-btn" class="btn admin-only" disabled style="margin-top:8px;background:#e67e22;color:white;display:none;">Admin Reserve</button>
+          <button id="admin-release-btn" class="btn admin-only" disabled style="margin-top:8px;background:#e74c3c;color:white;display:none;">Admin Release</button>
           <p class="note">Reservations are stored locally for demo. For production connect to your backend.</p>
         </aside>
       </div>
@@ -81,17 +86,133 @@
           <h3 id="modal-title">Reserve Spot</h3>
           <form id="booking-form">
             <input type="hidden" id="spotId" name="spotId" />
-            <label>Your name <input type="text" id="b-name" name="name" required></label>
+            <label>Full name <input type="text" id="b-name" name="name" required></label>
+            <label>Company name <input type="text" id="b-company" name="company" required placeholder="Your Business Name"></label>
             <label>Email <input type="email" id="b-email" name="email" required></label>
+            <label>Phone <input type="tel" id="b-phone" name="phone" required placeholder="(555) 555-5555"></label>
+            <div class="addon-options" style="margin-top:16px;">
+              <h4 style="margin:0 0 8px 0;color:#333;">Add-on Options</h4>
+              <label class="addon-checkbox">
+                <input type="checkbox" id="addon-full-rental" name="addons" value="full-rental" data-price="125">
+                Full Rental Package ($125.00)
+              </label>
+              <label class="addon-checkbox">
+                <input type="checkbox" id="addon-setup" name="addons" value="setup-breakdown" data-price="75">
+                Setup/Breakdown Assistance (+$75.00)
+              </label>
+              <label class="addon-checkbox">
+                <input type="checkbox" id="addon-table" name="addons" value="table-chairs" data-price="45">
+                6ft Folding Table w/ 2 Chairs (+$45.00)
+              </label>
+              <label class="addon-checkbox">
+                <input type="checkbox" id="addon-tent" name="addons" value="tent" data-price="100">
+                10x10 Tent (+$100.00)
+              </label>
+            </div>
+            
+            <div class="total-price-display" style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:8px;border:1px solid #e9ecef;">
+              <strong>Total Price: <span id="modal-total-price">$0.00</span></strong>
+            </div>
+            
+            <div id="payment-area" style="display:none;margin-top:8px;">
+              <!-- Stripe Elements payment UI will be mounted here -->
+              <div id="payment-element"></div>
+              <div id="payment-status" style="margin-top:8px;color:#e87c0e"></div>
+            </div>
+            <!-- Stripe.js loader -->
+            <script src="https://js.stripe.com/v3/"></script>
             <div class="modal-actions">
-              <button type="submit" class="btn primary">Confirm & Reserve</button>
+              <button type="submit" class="btn primary">Confirm & Pay</button>
               <button type="button" id="modal-cancel" class="btn">Cancel</button>
             </div>
           </form>
         </div>
       </div>
 
+      <!-- Authentication Modal -->
+      <div id="auth-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+          <button class="modal-close" onclick="closeAuthModal()">×</button>
+          <h3 id="auth-modal-title">Login</h3>
+          
+          <!-- Login Form -->
+          <form id="login-form" onsubmit="handleLogin(event)">
+            <label>Email <input type="email" id="login-email" required></label>
+            <label>Password <input type="password" id="login-password" required></label>
+            <div id="login-error" class="error-message"></div>
+            <div class="modal-actions">
+              <button type="submit" class="btn primary">Login</button>
+              <button type="button" class="btn" onclick="closeAuthModal()">Cancel</button>
+            </div>
+          </form>
+          
+          <!-- Register Form -->
+          <form id="register-form" onsubmit="handleRegister(event)" style="display:none;">
+            <label>Full Name <input type="text" id="register-name" required></label>
+            <label>Email <input type="email" id="register-email" required></label>
+            <label>Password <input type="password" id="register-password" required minlength="6"></label>
+            <label>Confirm Password <input type="password" id="register-confirm-password" required minlength="6"></label>
+            <div id="register-error" class="error-message"></div>
+            <div class="modal-actions">
+              <button type="submit" class="btn primary">Create Account</button>
+              <button type="button" class="btn" onclick="closeAuthModal()">Cancel</button>
+            </div>
+          </form>
+          
+          <!-- Switch between forms -->
+          <div class="auth-switch">
+            <p id="switch-to-register">Don't have an account? <a href="#" onclick="showAuthModal('register')">Create one</a></p>
+            <p id="switch-to-login" style="display:none;">Already have an account? <a href="#" onclick="showAuthModal('login')">Login</a></p>
+          </div>
+        </div>
+      </div>
+      
     </main>
+    <script src="Scripts/auth.js"></script>
     <script src="Scripts/map.js"></script>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-about">
+          <img src="Media/Images/CSF.png" alt="CSF" class="footer-logo" />
+          <p>The Cuban Sandwich Festival, Taste of Latino, and other Festivals bring the best local events, vendors, and entertainment to your neighborhoods. Join us to celebrate culture, food, and community.</p>
+        </div>
+        <div class="footer-col footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="Events.html">Events</a></li>
+            <li><a href="Vendor-Information.html">Vendor Resources</a></li>
+            <li><a href="News.html">News</a></li>
+            <li><a href="Contact-Us.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Join Our Mailing List</h4>
+          <form class="footer-newsletter-form" aria-label="Subscribe to newsletter">
+            <input type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+          </form>
+          <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer-col footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" aria-label="X" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-inner small">
+          <p>2025 ©<span id="current-year"></span> Cuban Sandwich Festival — All rights reserved.</p>
+          <p class="footer-legal"><a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Auth Scripts -->
+    <script src="Scripts/auth.js"></script>
+    <script src="Scripts/nav-auth.js"></script>
   </body>
 </html>

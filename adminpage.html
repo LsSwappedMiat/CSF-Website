@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang        <a href="About-Us.html" class="nav-link">About Us</a>
+        <a href="login.html" class="nav-link auth-only">Log In or Sign Up</a>
+        <button class="nav-link btn-link signed-in-only" onclick="signOut()" style="display:none;background:none;border:none;color:inherit;text-decoration:underline;cursor:pointer;">Sign Out</button>
+        <a href="adminpage.html" class="nav-link admin-only" style="display:none;">Admin Controls</a>n">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Cuban Sandwich Festival</title>
+    <link rel="stylesheet" href="Css/home.css">
+    <link rel="stylesheet" href="Css/adminpage.css">
+    <script src="https://kit.fontawesome.com/1b2e7c5bdb.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav>
+      <div class="logo-group">
+        <div class="logo">
+          <img src="Media\Images\CSF.png" alt="Logo" width="64" height="64" />
+        </div>
+        <div class="partner-logos" aria-hidden="true">
+          <img class="partner-logo" src="Media\Images\ToL.png" alt="Partner 1" />
+          <img class="partner-logo" src="Media\Images\ToT.png" alt="Partner 2" />
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="Home.html" class="nav-link">Home</a>
+        <a href="Vendor-Information.html" class="nav-link">Vendor Resources</a>
+        <a href="Vip-Information.html" class="nav-link">Vip Lounge Information</a>
+        <a href="Vendor-Booking.html" class="nav-link">Book A Vendor Spot</a>
+        <a href="Contact-Us.html" class="nav-link">Contact Us</a>
+        <a href="About-Us.html" class="nav-link">About Us</a>
+        <a href="login.html" class="nav-link auth-only">Log In or Sign Up</a>
+        <a href="adminpage.html" class="nav-link admin-only" style="color: #fa9b2f;">Admin Controls</a>
+      </div>
+    </nav>
+
+    <main class="admin-page">
+        <div class="admin-header">
+            <h1>Administration Panel</h1>
+            <p>Manage users, system settings, and monitor the Cuban Sandwich Festival booking system.</p>
+        </div>
+
+        <!-- Access Denied Message -->
+        <div id="access-denied" class="access-denied" style="display:none;">
+            <div class="access-denied-content">
+                <h2>Access Denied</h2>
+                <p>You need administrator privileges to access this page.</p>
+                <button class="btn primary" onclick="showAuthModal('login')">Login as Admin</button>
+                <a href="Home.html" class="btn">Return to Home</a>
+            </div>
+        </div>
+
+        <!-- Admin Content -->
+        <div id="admin-content" class="admin-content" style="display:none;">
+            <!-- Navigation Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showTab('users')">User Management</button>
+                <button class="tab-btn" onclick="showTab('bookings')">Booking Management</button>
+                <button class="tab-btn" onclick="showTab('booking-map')">Booking Map</button>
+                <button class="tab-btn" onclick="showTab('system')">System Information</button>
+                <button class="tab-btn" onclick="showTab('settings')">Settings</button>
+            </div>
+
+            <!-- User Management Tab -->
+            <div id="tab-users" class="tab-content active">
+                <div class="section-header">
+                    <h2>User Management</h2>
+                    <button class="btn primary" onclick="showCreateUserForm()">Create New User</button>
+                </div>
+
+                <!-- Create User Form -->
+                <div id="create-user-form" class="form-section" style="display:none;">
+                    <h3>Create New User</h3>
+                    <form id="admin-create-user" onsubmit="adminCreateUser(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="admin-user-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="admin-user-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" id="admin-user-password" required minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <label>User Permissions</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="admin-flag-admin">
+                                        <span>Administrator</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="admin-flag-edit">
+                                        <span>Editor</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="admin-flag-viewer" checked>
+                                        <span>Viewer</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn primary">Create User</button>
+                            <button type="button" class="btn" onclick="hideCreateUserForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- User List -->
+                <div class="users-section">
+                    <h3>Registered Users</h3>
+                    <div id="user-list" class="user-list">
+                        <!-- Users will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Management Tab -->
+            <div id="tab-bookings" class="tab-content">
+                <div class="section-header">
+                    <h2>Booking Management</h2>
+                    <div class="section-actions">
+                        <button class="btn" onclick="exportBookings()">Export Data</button>
+                        <button class="btn" onclick="refreshBookings()">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="bookings-stats">
+                    <div class="stat-card">
+                        <h3 id="total-spots">0</h3>
+                        <p>Total Spots</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="booked-spots">0</h3>
+                        <p>Booked Spots</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="revenue-total">$0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+
+                <div class="bookings-list">
+                    <h3>Recent Bookings</h3>
+                    <div id="bookings-table" class="bookings-table">
+                        <!-- Bookings will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Map Tab -->
+            <div id="tab-booking-map" class="tab-content">
+                <div class="section-header">
+                    <h2>Booking Map View</h2>
+                    <div class="section-actions">
+                        <button class="btn" onclick="refreshBookingMap()">Refresh Map</button>
+                        <button class="btn" onclick="exportMapData()">Export Map Data</button>
+                    </div>
+                </div>
+
+                <div class="map-info">
+                    <p>This map shows all vendor spots with booking information. Hover over spots to see details.</p>
+                </div>
+
+                <!-- Admin Map Container -->
+                <div id="admin-map-container" class="admin-map-container">
+                    <svg id="admin-booking-map" class="admin-booking-map" viewBox="0 0 800 600">
+                        <!-- Map spots will be rendered here -->
+                    </svg>
+                </div>
+
+                <!-- Map Legend -->
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #28a745;"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #dc3545;"></div>
+                        <span>Booked</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ffc107;"></div>
+                        <span>Pending</span>
+                    </div>
+                </div>
+
+                <!-- Booking Details Panel -->
+                <div id="booking-details-panel" class="booking-details-panel" style="display:none;">
+                    <h3>Booking Details</h3>
+                    <div id="booking-details-content">
+                        <!-- Details will be populated here -->
+                    </div>
+                    <button class="btn" onclick="closeBookingDetails()">Close</button>
+                </div>
+            </div>
+
+            <!-- System Information Tab -->
+            <div id="tab-system" class="tab-content">
+                <div class="section-header">
+                    <h2>System Information</h2>
+                    <button class="btn" onclick="refreshSystemInfo()">Refresh</button>
+                </div>
+
+                <div class="system-grid">
+                    <div class="system-card">
+                        <h3>Application Info</h3>
+                        <div id="app-info">
+                            <!-- App info will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="system-card">
+                        <h3>Storage Usage</h3>
+                        <div id="storage-info">
+                            <!-- Storage info will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="system-card">
+                        <h3>Performance</h3>
+                        <div id="performance-info">
+                            <!-- Performance info will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="tab-settings" class="tab-content">
+                <div class="section-header">
+                    <h2>System Settings</h2>
+                    <button class="btn primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+
+                <div class="settings-sections">
+                    <div class="settings-section">
+                        <h3>Booking Settings</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="setting-booking-enabled" checked>
+                                Enable Booking System
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="setting-payment-required" checked>
+                                Require Payment for Bookings
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Security Settings</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="setting-require-login" checked>
+                                Require Login for Booking
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Session Timeout (minutes)</label>
+                            <input type="number" id="setting-session-timeout" value="60" min="5" max="480">
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Data Management</h3>
+                        <div class="form-group">
+                            <button class="btn" onclick="exportAllData()">Export All Data</button>
+                            <button class="btn" onclick="clearOldBookings()">Clear Old Bookings</button>
+                        </div>
+                        <div class="form-group danger-zone">
+                            <h4>Danger Zone</h4>
+                            <button class="btn danger" onclick="resetSystem()">Reset All Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Authentication Modal -->
+    <div id="auth-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeAuthModal()">×</button>
+            <h3 id="auth-modal-title">Login</h3>
+            
+            <!-- Login Form -->
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <label>Email <input type="email" id="login-email" required></label>
+                <label>Password <input type="password" id="login-password" required></label>
+                <div id="login-error" class="error-message"></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn primary">Login</button>
+                    <button type="button" class="btn" onclick="closeAuthModal()">Cancel</button>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="register-form" onsubmit="handleRegister(event)" style="display:none;">
+                <label>Full Name <input type="text" id="register-name" required></label>
+                <label>Email <input type="email" id="register-email" required></label>
+                <label>Password <input type="password" id="register-password" required minlength="6"></label>
+                <label>Confirm Password <input type="password" id="register-confirm-password" required minlength="6"></label>
+                <div id="register-error" class="error-message"></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn primary">Create Account</button>
+                    <button type="button" class="btn" onclick="closeAuthModal()">Cancel</button>
+                </div>
+            </form>
+            
+            <!-- Switch between forms -->
+            <div class="auth-switch">
+                <p id="switch-to-register">Don't have an account? <a href="#" onclick="showAuthModal('register')">Create one</a></p>
+                <p id="switch-to-login" style="display:none;">Already have an account? <a href="#" onclick="showAuthModal('login')">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-about">
+          <img src="Media/Images/CSF.png" alt="CSF" class="footer-logo" />
+          <h4>Cuban Sandwich Festival</h4>
+          <p>The Cuban Sandwich Festival, Taste of Latino, and other Festivals bring the best local events, vendors, and entertainment to your neighborhoods. Join us to celebrate culture, food, and community.</p>
+        </div>
+        <div class="footer-col footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="Events.html">Events</a></li>
+            <li><a href="Vendor-Information.html">Vendor Resources</a></li>
+            <li><a href="News.html">News</a></li>
+            <li><a href="Contact-Us.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-newsletter">
+          <h4>Join Our Mailing List</h4>
+          <form class="footer-newsletter-form" aria-label="Subscribe to newsletter">
+            <input type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit" class="subscribe-btn">Subscribe</button>
+          </form>
+          <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer-col footer-social">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" aria-label="X" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-inner small">
+          <p>2025 ©<span id="current-year"></span> Cuban Sandwich Festival — All rights reserved.</p>
+          <p class="footer-legal"><a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="Scripts/auth.js"></script>
+    <script src="Scripts/admin.js"></script>
+    <script src="Scripts/nav-auth.js"></script>
+</body>
+</html>
