@@ -215,16 +215,27 @@
   }
   if(toggleEditBtn) toggleEditBtn.addEventListener('click', ()=> enableEditMode(!editing));
 
-  // Add Spot button: creates a new rect at center of viewBox
+  // Add Spot button: next click on SVG adds a spot at that location
+  let addSpotMode = false;
   addSpotBtn && addSpotBtn.addEventListener('click', ()=>{
     if(!localStorage.getItem('admin_auth')) return alert('Admin required');
     enableEditMode(true);
+    addSpotMode = true;
+    svg.style.cursor = 'crosshair';
+  });
+
+  svg.addEventListener('click', (e) => {
+    if (!editing || !addSpotMode) return;
+    // Only add if click is not on an existing spot or handle
+    if (e.target.classList.contains('spot') || e.target.classList.contains('resize-handle')) return;
+    const pt = svgPointFromEvent(e);
     const id = 'S' + Math.floor(Math.random()*900 + 100);
-    const defaultRect = { id, type:'rect', x:420, y:220, w:120, h:120, price:100 };
-    // append to svg and storage
+    const defaultRect = { id, type:'rect', x:Math.round(pt.x-60), y:Math.round(pt.y-60), w:24, h:24, price:100 };
     createSpotEl(defaultRect);
     bindSpotHandlers();
     selectSpot(svg.querySelector(`[data-id='${id}']`));
+    addSpotMode = false;
+    svg.style.cursor = '';
   });
 
   // Save Spots button: serialize current spots to SPOTS_KEY
