@@ -1,4 +1,4 @@
-import { supabaseAdmin, getUser } from '../../lib/supabase.js'
+import { supabaseAdmin, getUser } from '../lib/supabase.js'
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)

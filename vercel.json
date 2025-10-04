@@ -1,24 +1,29 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/login",
+      "dest": "/api/login.js"
+    },
+    {
+      "src": "/api/register", 
+      "dest": "/api/register.js"
+    },
+    {
+      "src": "/api/logout",
+      "dest": "/api/logout.js"
+    },
+    {
+      "src": "/api/spots",
+      "dest": "/api/spots.js"
+    },
+    {
+      "src": "/api/bookings",
+      "dest": "/api/bookings.js"
     },
     {
       "src": "/(.*)",
       "dest": "/server.js"
     }
-  ],
-  "functions": {
-    "server.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }
